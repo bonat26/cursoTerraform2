@@ -1,0 +1,25 @@
+- hosts: all 
+
+  remote_user: root
+
+  tasks:
+  
+    - name: Actualizar referencias de librerias y dependencias
+      apt: 
+        update_cache: yes
+        
+    - name: Actualizar librerias y dependencias
+      apt: 
+        upgrade: yes
+        
+    - name: Asegurar que Docker este presente
+      apt:
+        name: docker
+        
+    - name: Asegurar que Tomcat este en ejecucion
+      docker:
+        name: tomcat
+        image: bitnami/tomcat
+        state: started
+        expose:
+        - 8080
